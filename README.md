@@ -1,5 +1,6 @@
 # push-notifications
-# Django app for Firebase Cloud Messaging. send push notifications to mobile devices (android / ios) & browsers (chrome / firefox ) using CRONJOBS.
+# Django app for Firebase Cloud Messaging 
+# Send push notifications to mobile devices (android / ios) & browsers (chrome / firefox / .... ) using CRONJOBS.
 
 ## FCMDevice model fields:
 * registration_id (required)
@@ -22,7 +23,7 @@ Install library from pypi using [fcm-django](https://pypi.org/project/fcm-django
 pip install fcm-django
 pip install cronjob
 ```
-Add fcm_django and cron_tabs into your setting.py file 
+Add fcm_django and cron_tabs into your settings.py file 
 ```
 INSTALLED_APPS = (
 
@@ -32,7 +33,7 @@ INSTALLED_APPS = (
 ```
  ``` manage.py migrate ``` will install and migrate FCMDevice Model.
  
-Also Add FCM_SERVER_KEY and CRONJOBS(when you want to run thread) into your project setting.py
+Also Add FCM_SERVER_KEY and CRONJOBS(when you want to run thread) into your project settings.py
 ```
 FCM_DJANGO_SETTINGS = {
         "FCM_SERVER_KEY": "[your api key]",
@@ -40,9 +41,14 @@ FCM_DJANGO_SETTINGS = {
         "DELETE_INACTIVE_DEVICES": True/False,
 }
 CRONJOBS = [
-    ('0 0 * * *', 'api.cron.run') #api is my app name  #run is my method name define in given code
+    ('0 0 * * *', 'api.cron.run') 
+    ]
+    # api is my app name  
+    # run is my method name define in code
+    # The main part of a cron is its timing syntax which defines the schedule at which the job has to be run periodically.
+    # The above syntax corresponds to the job schedule at 0(zero) min and 0(zero) hour of every day
+    # You can [learn more](https://gutsytechster.wordpress.com/2019/06/24/how-to-setup-a-cron-job-in-django/) about schedule of cronjob 
     
-]
 ```
 You can get your FCM_SERVER_KEY key from
 * Go to [firebase](firebase.google.com)
@@ -56,6 +62,16 @@ You can get your FCM_SERVER_KEY key from
 ### Here we will send notification to android device on the basis of hijri date:
 Code for sending notifications
 ```
+from django.shortcuts import render
+from rest_framework import viewsets
+from .serializers import FCMDeviceSerializer
+from fcm_django.models import FCMDevice
+from datetime import date
+from ummalqura.hijri import Umalqurra
+import time
+import datetime 
+from ummalqura.hijri_date import HijriDate
+
 class Ramzanalert():
     def run(self):
         devices = FCMDevice.objects.all()

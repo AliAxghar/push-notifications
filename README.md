@@ -49,7 +49,7 @@ CRONJOBS = [
     # The above syntax corresponds to the job schedule at 0(zero) min and 0(zero) hour of every day
     
 ```
- # [learn more about Cronjob Schedule](https://gutsytechster.wordpress.com/2019/06/24/how-to-setup-a-cron-job-in-django/) 
+[learn more about Cronjob Schedule](https://gutsytechster.wordpress.com/2019/06/24/how-to-setup-a-cron-job-in-django/) 
  
 You can get your FCM_SERVER_KEY key from
 * Go to [firebase](firebase.google.com)
